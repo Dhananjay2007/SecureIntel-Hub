@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTRO SecureIntel Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <h2>NTRO SecureIntel Hub</h2>
+            </div>
+            <nav class="main-nav">
+                <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
+                <button class="nav-btn" data-tab="query">Query Interface</button>
+                <button class="nav-btn" data-tab="ragbot">RAG Bot</button>
+                <button class="nav-btn" data-tab="results">Scan Results</button>
+                <button class="nav-btn" data-tab="pipeline">MCP Pipeline</button>
+                <button class="nav-btn" data-tab="reports">Reports</button>
+            </nav>
+            <div class="profile">
+                <div class="profile-icon">👤</div>
+                <span>Admin</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-content">
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <h1>Welcome to SecureIntel Hub</h1>
+                <p>Your comprehensive cybersecurity command center providing real-time threat intelligence and vulnerability management.</p>
+                <div class="banner-actions">
+                    <input type="text" placeholder="Enter natural language security query..." class="query-input">
+                    <button class="btn-primary" onclick="generateReport()">Generate Report</button>
+                </div>
+            </div>
+
+            <!-- Metrics Cards -->
+            <div class="metrics-grid">
+                <div class="metric-card critical">
+                    <div class="metric-icon">⚠</div>
+                    <div class="metric-info">
+                        <h3>23</h3>
+                        <p>Critical Vulnerabilities</p>
+                        <span class="metric-change">+12%</span>
+                    </div>
+                </div>
+                <div class="metric-card high">
+                    <div class="metric-icon">●</div>
+                    <div class="metric-info">
+                        <h3>67</h3>
+                        <p>High Severity Issues</p>
+                        <span class="metric-change">+5%</span>
+                    </div>
+                </div>
+                <div class="metric-card info">
+                    <div class="metric-icon">🔍</div>
+                    <div class="metric-info">
+                        <h3>1,247</h3>
+                        <p>Total Scans Completed</p>
+                        <span class="metric-change">+23%</span>
+                    </div>
+                </div>
+                <div class="metric-card success">
+                    <div class="metric-icon">🛡</div>
+                    <div class="metric-info">
+                        <h3>892</h3>
+                        <p>Monitored Assets</p>
+                        <span class="metric-change">+18%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Vulnerability Trends</h3>
+                        <a href="#" class="view-all">View All Scans</a>
+                    </div>
+                    <canvas id="vulnerabilityChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Risk Distribution</h3>
+                        <a href="#" class="view-all">View Reports</a>
+                    </div>
+                    <canvas id="riskChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Activity and Actions -->
+            <div class="activity-section">
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-item critical">
+                        <div class="activity-indicator"></div>
+                        <div class="activity-content">
+                            <p>Critical SQL injection vulnerability detected in production database</p>
+                            <span class="activity-time">2 minutes ago</span>
+                            <span class="severity-badge critical">CRITICAL</span>
+                        </div>
+                    </div>
+                    <div class="activity-item high">
+                        <div class="activity-indicator"></div>
+                        <div class="activity-content">
+                            <p>New malware signature added to detection database</p>
+                            <span class="activity-time">18 minutes ago</span>
+                            <span class="severity-badge high">HIGH</span>
+                        </div>
+                    </div>
+                    <div class="activity-item medium">
+                        <div class="activity-indicator"></div>
+                        <div class="activity-content">
+                            <p>New web server detected on network: 192.168.1.024</p>
+                            <span class="activity-time">1 hour ago</span>
+                            <span class="severity-badge medium">MEDIUM</span>
+                        </div>
+                    </div>
+                    <div class="activity-item low">
+                        <div class="activity-indicator"></div>
+                        <div class="activity-content">
+                            <p>Weekly security assessment report generated</p>
+                            <span class="activity-time">2 hours ago</span>
+                            <span class="severity-badge low">LOW</span>
+                        </div>
+                    </div>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <button class="action-btn emergency" onclick="startEmergencyScan()">Emergency Scan</button>
+                    <button class="action-btn intelligence" onclick="openThreatIntelligence()">Threat Intelligence</button>
+                    <button class="action-btn report" onclick="generateReport()">Generate Report</button>
+
+                    <div class="security-score">
+                        <h4>Security Score</h4>
+                        <div class="score-value">87%</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 87%"></div>
+                        </div>
+                        <a href="#" class="view-details">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scan Templates -->
+            <div class="scan-templates">
+                <h3>Quick Scan Templates</h3>
+                <div class="templates-grid">
+                    <div class="template-card vulnerability">
+                        <h4>Vulnerability Scan</h4>
+                        <p>Comprehensive vulnerability assessment across all assets</p>
+                        <button class="btn-secondary" onclick="startScan('vulnerability')">Start Scan</button>
+                    </div>
+                    <div class="template-card compliance">
+                        <h4>Compliance Check</h4>
+                        <p>Verify compliance with security standards and policies</p>
+                        <button class="btn-secondary" onclick="startScan('compliance')">Start Scan</button>
+                    </div>
+                    <div class="template-card network">
+                        <h4>Network Scan</h4>
+                        <p>Discover and assess network infrastructure security</p>
+                        <button class="btn-secondary" onclick="startScan('network')">Start Scan</button>
+                    </div>
+                    <div class="template-card malware">
+                        <h4>Malware Scan</h4>
+                        <p>Detect and analyze malware threats across endpoints</p>
+                        <button class="btn-secondary" onclick="startScan('malware')">Start Scan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Query Interface Tab -->
+        <div id="query" class="tab-content">
+            <div class="query-container">
+                <h2>Natural Language Query Interface</h2>
+                <p>Enter security queries in natural language to trigger comprehensive scans and analysis</p>
+
+                <div class="query-form">
+                    <div class="query-input-section">
+                        <label>Security Query</label>
+                        <textarea id="queryInput" placeholder="Example: Scan our network for critical vulnerabilities in web applications"></textarea>
+                    </div>
+
+                    <div class="target-section">
+                        <label>Target Scope</label>
+                        <input type="text" id="targetInput" placeholder="192.168.1.0/24, *.company.com, or 'All Assets'">
+                    </div>
+
+                    <div class="scanner-selection">
+                        <label>Scanner Tools</label>
+                        <div class="scanner-checkboxes">
+                            <label><input type="checkbox" checked> Nmap (Network Discovery)</label>
+                            <label><input type="checkbox" checked> OpenVAS (Vulnerability Assessment)</label>
+                            <label><input type="checkbox" checked> Nikto (Web Scanner)</label>
+                            <label><input type="checkbox" checked> Nuclei (Template-based Scanner)</label>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary execute-btn" onclick="executeQuery()">Execute Query</button>
+                </div>
+
+                <div class="query-examples">
+                    <h3>Example Queries</h3>
+                    <div class="example-item" onclick="fillQuery('Scan our network for critical vulnerabilities')">
+                        "Scan our network for critical vulnerabilities"
+                    </div>
+                    <div class="example-item" onclick="fillQuery('Check web applications for SQL injection vulnerabilities')">
+                        "Check web applications for SQL injection vulnerabilities"
+                    </div>
+                    <div class="example-item" onclick="fillQuery('Analyze infrastructure for privilege escalation risks')">
+                        "Analyze infrastructure for privilege escalation risks"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RAG Bot Tab -->
+        <div id="ragbot" class="tab-content">
+            <div class="ragbot-container">
+                <div class="chat-header">
+                    <h2>ARIA - Advanced Risk Intelligence Assistant</h2>
+                    <p>Your AI-powered cybersecurity analyst for threat analysis and recommendations</p>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            <p>Hello! I'm ARIA, your Advanced Risk Intelligence Assistant. I can help analyze vulnerabilities, explain attack paths, and provide security recommendations based on your scan results.</p>
+                            <p>How can I assist you with your cybersecurity analysis today?</p>
+                        </div>
+                        <span class="message-time">Just now</span>
+                    </div>
+                </div>
+
+                <div class="chat-input-section">
+                    <div class="quick-queries">
+                        <button class="quick-query" onclick="sendMessage('Analyze the critical vulnerabilities from the latest scan')">Analyze critical vulnerabilities</button>
+                        <button class="quick-query" onclick="sendMessage('What are the most urgent security recommendations?')">Security recommendations</button>
+                        <button class="quick-query" onclick="sendMessage('Explain the attack path for CVE-2024-1086')">Explain attack paths</button>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Ask me about vulnerabilities, threats, or security recommendations...">
+                        <button onclick="sendChatMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scan Results Tab -->
+        <div id="results" class="tab-content">
+            <div class="results-container">
+                <div class="results-header">
+                    <h2>Scan Results</h2>
+                    <div class="results-actions">
+                        <button class="btn-secondary" onclick="exportResults()">Export Results</button>
+                        <button class="btn-primary" onclick="scheduleScan()">Schedule Scan</button>
+                    </div>
+                </div>
+
+                <div class="results-metrics">
+                    <div class="result-metric">
+                        <h3>1,247</h3>
+                        <p>Total Scans</p>
+                    </div>
+                    <div class="result-metric">
+                        <h3>3</h3>
+                        <p>Active Scans</p>
+                    </div>
+                    <div class="result-metric">
+                        <h3>23</h3>
+                        <p>Critical Findings</p>
+                    </div>
+                    <div class="result-metric">
+                        <h3>67</h3>
+                        <p>High Findings</p>
+                    </div>
+                </div>
+
+                <div class="results-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Scan Details</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Target</th>
+                                <th>Findings</th>
+                                <th>Progress</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="scan-info">
+                                        <strong>Production Web Servers</strong>
+                                        <small>Started 2 hours ago</small>
+                                    </div>
+                                </td>
+                                <td><span class="type-badge vulnerability">Vulnerability</span></td>
+                                <td><span class="status-badge running">Running</span></td>
+                                <td>192.168.1.0/24</td>
+                                <td><span class="findings-badge high">23</span></td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 67%"></div>
+                                    </div>
+                                    <small>67%</small>
+                                </td>
+                                <td>
+                                    <button class="action-btn small" onclick="viewScanDetails('SCAN-001')">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="scan-info">
+                                        <strong>Database Security Audit</strong>
+                                        <small>Started 6 hours ago</small>
+                                    </div>
+                                </td>
+                                <td><span class="type-badge compliance">Compliance</span></td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>db-cluster-prod</td>
+                                <td><span class="findings-badge critical">8</span></td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%"></div>
+                                    </div>
+                                    <small>100%</small>
+                                </td>
+                                <td>
+                                    <button class="action-btn small" onclick="viewScanDetails('SCAN-002')">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- MCP Pipeline Tab -->
+        <div id="pipeline" class="tab-content">
+            <div class="pipeline-container">
+                <h2>MCP Pipeline Status</h2>
+                <p>Multi-Component Pipeline processing and coordination status</p>
+
+                <div class="pipeline-overview">
+                    <div class="pipeline-metric">
+                        <h3>Active</h3>
+                        <p>Pipeline Status</p>
+                    </div>
+                    <div class="pipeline-metric">
+                        <h3>1,247</h3>
+                        <p>Processed Items</p>
+                    </div>
+                    <div class="pipeline-metric">
+                        <h3>15ms</h3>
+                        <p>Avg Processing Time</p>
+                    </div>
+                </div>
+
+                <div class="pipeline-components">
+                    <div class="component-card active">
+                        <h4>Parsing Module</h4>
+                        <p>Extract and normalize scan data</p>
+                        <span class="status-indicator active"></span>
+                    </div>
+                    <div class="component-card active">
+                        <h4>Enrichment Module</h4>
+                        <p>Add threat intelligence context</p>
+                        <span class="status-indicator active"></span>
+                    </div>
+                    <div class="component-card active">
+                        <h4>Analysis Module</h4>
+                        <p>Correlate findings and assess risk</p>
+                        <span class="status-indicator active"></span>
+                    </div>
+                    <div class="component-card active">
+                        <h4>Visualization Module</h4>
+                        <p>Generate reports and attack paths</p>
+                        <span class="status-indicator active"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Tab -->
+        <div id="reports" class="tab-content">
+            <div class="reports-container">
+                <h2>Security Reports</h2>
+                <div class="reports-actions">
+                    <button class="btn-primary" onclick="generateNewReport()">Generate New Report</button>
+                    <button class="btn-secondary" onclick="exportAllReports()">Export All</button>
+                </div>
+
+                <div class="reports-list">
+                    <div class="report-item">
+                        <div class="report-info">
+                            <h4>Weekly Security Assessment</h4>
+                            <p>Comprehensive analysis of security posture and vulnerabilities</p>
+                            <small>Generated 2 hours ago</small>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-secondary small">Download PDF</button>
+                            <button class="btn-secondary small">View Online</button>
+                        </div>
+                    </div>
+                    <div class="report-item">
+                        <div class="report-info">
+                            <h4>Threat Intelligence Summary</h4>
+                            <p>Latest threat indicators and attack patterns analysis</p>
+                            <small>Generated 1 day ago</small>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-secondary small">Download PDF</button>
+                            <button class="btn-secondary small">View Online</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scanning Modal -->
+    <div id="scanningModal" class="modal">
+        <div class="modal-content scanning-interface">
+            <div class="modal-header">
+                <h3>New Security Scan</h3>
+                <span class="close-modal" onclick="closeScanModal()">&times;</span>
+            </div>
+
+            <div class="scanning-progress">
+                <div class="progress-circle">
+                    <svg width="120" height="120">
+                        <circle cx="60" cy="60" r="50" stroke="#e9ecef" stroke-width="8" fill="none"/>
+                        <circle id="progressCircle" cx="60" cy="60" r="50" stroke="#3498db" stroke-width="8" 
+                                fill="none" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314"/>
+                    </svg>
+                    <div class="progress-text">
+                        <span id="progressPercentage">0%</span>
+                    </div>
+                </div>
+
+                <div class="scanning-status">
+                    <h4>Scanning in Progress...</h4>
+                    <p id="currentStep">Initializing scan engine...</p>
+                    <div class="loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scan-steps">
+                <h4>Scan Progress</h4>
+                <div class="step-item active" id="step1">
+                    <div class="step-indicator"></div>
+                    <span>Initializing scan engine...</span>
+                </div>
+                <div class="step-item" id="step2">
+                    <div class="step-indicator"></div>
+                    <span>Discovering targets...</span>
+                </div>
+                <div class="step-item" id="step3">
+                    <div class="step-indicator"></div>
+                    <span>Port scanning...</span>
+                </div>
+                <div class="step-item" id="step4">
+                    <div class="step-indicator"></div>
+                    <span>Service enumeration...</span>
+                </div>
+                <div class="step-item" id="step5">
+                    <div class="step-indicator"></div>
+                    <span>Vulnerability detection...</span>
+                </div>
+                <div class="step-item" id="step6">
+                    <div class="step-indicator"></div>
+                    <span>Analysis and reporting...</span>
+                </div>
+                <div class="step-item" id="step7">
+                    <div class="step-indicator"></div>
+                    <span>Finalizing results...</span>
+                </div>
+            </div>
+
+            <div class="scan-metrics">
+                <div class="metric">
+                    <h3 id="hostsScanned">0</h3>
+                    <p>Hosts Scanned</p>
+                </div>
+                <div class="metric">
+                    <h3 id="vulnerabilitiesFound">0</h3>
+                    <p>Vulnerabilities</p>
+                </div>
+                <div class="metric">
+                    <h3 id="portsFound">0</h3>
+                    <p>Ports Found</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
